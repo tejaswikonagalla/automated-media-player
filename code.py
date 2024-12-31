@@ -69,10 +69,6 @@ while True:
                 prev = cnt
                 start_init = False
 
-
-        
-
-
         drawing.draw_landmarks(frm, hand_keyPoints, hands.HAND_CONNECTIONS)
 
     cv2.imshow("window", frm)
