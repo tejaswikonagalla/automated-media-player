@@ -6,7 +6,7 @@ An automated media player using hand gestures is a system that allows users to c
 This technology is typically powered by machine learning algorithms and computer vision techniques, which allows the system to interpret user hand gestures and respond accordingly.
 The idea behind an automated media player using hand gestures is to create a more intuitive and natural user inter-hand for media playback.
 
-**MODULES USED:**
+**LIBRARIES:**
 
 1)opencv – It is an open source computer vision and ML software library which is used to identify, detect, match features from images captured by camera.
 
