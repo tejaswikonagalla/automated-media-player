@@ -62,7 +62,13 @@ while True:
                 
                 elif (cnt == 2):
                     pyautogui.press("left")
+                
+                elif (cnt == 3):
+                    pyautogui.press("up")
 
+                elif (cnt == 4):
+                    pyautogui.press("down")
+                    
                 elif (cnt == 5):
                     pyautogui.press("space")
 
