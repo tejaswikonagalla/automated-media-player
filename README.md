@@ -22,7 +22,11 @@ The idea behind an automated media player using hand gestures is to create a mor
 
 2 fingers raised - It will move a video backward
 
-3 fingers raised - It will deal with playing,pausing a video
+3 fingers raised - It will deal with volume up
+
+4 fingers raised - It will deal with volume down
+
+5 fingers raised - It will deal with playing,pausing a video
 
 **ADVANTAGES:**
 
