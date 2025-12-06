@@ -28,3 +28,25 @@ This system allows users to control media playback using hand gestures, powered 
 - Enhances user experience by enabling hands-free operation.
 - Increases accessibility for individuals with different needs.
 - Easy to perform, fast, efficient, and ensures an immediate response.
+
+## Getting Started
+
+To get started with the project, follow these steps:
+
+1. **Clone the Repository**: Clone the project repository to your local machine using `git clone <repository-url>`.
+
+2. **Install Dependencies**: Navigate to the project directory and install the required libraries using `pip install -r requirements.txt`.
+
+3. **Run the Application**: Execute the main script to start the gesture control application.
+
+4. **Calibrate**: Follow the on-screen instructions to calibrate the system for your environment.
+
+5. **Enjoy**: Use the specified gestures to control your media playback.
+
+## Contributing
+
+We welcome contributions to enhance the functionality and performance of this project. Please fork the repository and submit a pull request with your improvements.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.

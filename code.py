@@ -32,8 +32,12 @@ def main():
     start_init = False
     prev = -1
 
-    while True:
-        _, frame = cap.read()
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            print("Failed to grab frame")
+            break
+
         frame = cv2.flip(frame, 1)
 
         res = hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
@@ -65,7 +69,7 @@ def main():
 
         cv2.imshow("window", frame)
 
-        if cv2.waitKey(1) == 27:  # ESC key to exit
+        if cv2.waitKey(1) & 0xFF == 27:  # ESC key to exit
             break
 
     cap.release()
