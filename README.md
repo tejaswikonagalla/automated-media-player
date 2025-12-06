@@ -1,6 +1,7 @@
+```markdown
 # Project Overview
 
-In today's fast-paced world, everyone seeks instant and efficient ways to interact with technology. This project provides touch-free and remote-free control over video playback, offering an innovative advancement in human-computer interaction. By leveraging this technology, users can enjoy a more intuitive and natural way to interact with media, potentially transforming media consumption experiences.
+In today's fast-paced world, everyone seeks instant and efficient ways to interact with technology. This project offers touch-free and remote-free control over video playback, representing an innovative advancement in human-computer interaction. By leveraging this technology, users can enjoy a more intuitive and natural way to interact with media, potentially transforming media consumption experiences.
 
 This system allows users to control media playback using hand gestures, powered by machine learning algorithms and computer vision techniques. It interprets user gestures and responds accordingly, making life easier and more comfortable by enabling device control from a distance.
 
@@ -62,3 +63,4 @@ We welcome contributions to enhance the functionality and performance of this pr
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+```
