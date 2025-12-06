@@ -33,11 +33,23 @@ This system allows users to control media playback using hand gestures, powered 
 
 To get started with the project, follow these steps:
 
-1. **Clone the Repository**: Clone the project repository to your local machine using `git clone <repository-url>`.
+1. **Clone the Repository**: Clone the project repository to your local machine using:
 
-2. **Install Dependencies**: Navigate to the project directory and install the required libraries using `pip install -r requirements.txt`.
+   ```bash
+   git clone <repository-url>
+   ```
 
-3. **Run the Application**: Execute the main script to start the gesture control application.
+2. **Install Dependencies**: Navigate to the project directory and install the required libraries using:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the Application**: Execute the main script to start the gesture control application:
+
+   ```bash
+   python main.py
+   ```
 
 4. **Calibrate**: Follow the on-screen instructions to calibrate the system for your environment.
 
