@@ -2,8 +2,8 @@
 # CODE FOR PROJECT EXECUTION
 import cv2
 import mediapipe as mp
-import pyautogui
 import time
+import platform
 
 def count_fingers(hand_landmarks):
     cnt = 0
@@ -23,6 +23,14 @@ def count_fingers(hand_landmarks):
         cnt += 1
 
     return cnt
+
+def send_keypress(key):
+    if platform.system() == "Linux":
+        import subprocess
+        subprocess.run(["xdotool", "key", key])
+    else:
+        import pyautogui
+        pyautogui.press(key)
 
 def main():
     cap = cv2.VideoCapture(0)
@@ -53,15 +61,15 @@ def main():
                         start_init = True
                     elif (time.time() - start_time) > 0.2:
                         if cnt == 1:
-                            pyautogui.press("right")
+                            send_keypress("Right")
                         elif cnt == 2:
-                            pyautogui.press("left")
+                            send_keypress("Left")
                         elif cnt == 3:
-                            pyautogui.press("up")
+                            send_keypress("Up")
                         elif cnt == 4:
-                            pyautogui.press("down")
+                            send_keypress("Down")
                         elif cnt == 5:
-                            pyautogui.press("space")
+                            send_keypress("space")
 
                         prev = cnt
                         start_init = False
