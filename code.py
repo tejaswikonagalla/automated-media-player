@@ -27,10 +27,23 @@ def count_fingers(hand_landmarks):
 def send_keypress(key):
     if platform.system() == "Linux":
         import subprocess
-        subprocess.run(["xdotool", "key", key])
+        subprocess.run(["xdotool", "key", key.lower()])
+    elif platform.system() == "Windows":
+        import ctypes
+        MapVirtualKey = ctypes.windll.user32.MapVirtualKeyW
+        keybd_event = ctypes.windll.user32.keybd_event
+        VK_CODE = {
+            'left': 0x25,
+            'up': 0x26,
+            'right': 0x27,
+            'down': 0x28,
+            'space': 0x20
+        }
+        keybd_event(VK_CODE[key.lower()], MapVirtualKey(VK_CODE[key.lower()], 0), 0, 0)
+        keybd_event(VK_CODE[key.lower()], MapVirtualKey(VK_CODE[key.lower()], 0), 2, 0)
     else:
         import pyautogui
-        pyautogui.press(key)
+        pyautogui.press(key.lower())
 
 def main():
     cap = cv2.VideoCapture(0)
