@@ -1,4 +1,3 @@
-```python
 # CODE FOR PROJECT EXECUTION
 import cv2
 import mediapipe as mp
@@ -25,25 +24,71 @@ def count_fingers(hand_landmarks):
     return cnt
 
 def send_keypress(key):
-    if platform.system() == "Linux":
-        import subprocess
-        subprocess.run(["xdotool", "key", key.lower()])
-    elif platform.system() == "Windows":
-        import ctypes
-        MapVirtualKey = ctypes.windll.user32.MapVirtualKeyW
-        keybd_event = ctypes.windll.user32.keybd_event
-        VK_CODE = {
-            'left': 0x25,
-            'up': 0x26,
-            'right': 0x27,
-            'down': 0x28,
-            'space': 0x20
-        }
-        keybd_event(VK_CODE[key.lower()], MapVirtualKey(VK_CODE[key.lower()], 0), 0, 0)
-        keybd_event(VK_CODE[key.lower()], MapVirtualKey(VK_CODE[key.lower()], 0), 2, 0)
-    else:
-        import pyautogui
-        pyautogui.press(key.lower())
+    try:
+        if platform.system() == "Linux":
+            import subprocess
+            subprocess.run(["xdotool", "key", key.lower()], check=True)
+        elif platform.system() == "Windows":
+            import ctypes
+            from ctypes import wintypes
+
+            user32 = ctypes.WinDLL('user32', use_last_error=True)
+
+            key_map = {
+                'left': 0x25,
+                'up': 0x26,
+                'right': 0x27,
+                'down': 0x28,
+                'space': 0x20
+            }
+
+            key_code = key_map[key.lower()]
+
+            INPUT_KEYBOARD = 1
+            KEYEVENTF_KEYUP = 0x0002
+
+            class INPUT(ctypes.Structure):
+                class _INPUT(ctypes.Union):
+                    class _KEYBDINPUT(ctypes.Structure):
+                        _fields_ = (('wVk', wintypes.WORD),
+                                    ('wScan', wintypes.WORD),
+                                    ('dwFlags', wintypes.DWORD),
+                                    ('time', wintypes.DWORD),
+                                    ('dwExtraInfo', wintypes.ULONG_PTR))
+                    _fields_ = (('ki', _KEYBDINPUT),)
+                _anonymous_ = ('_input',)
+                _fields_ = (('type', wintypes.DWORD),
+                            ('_input', _INPUT))
+
+            def press_key(hexKeyCode):
+                x = INPUT(type=INPUT_KEYBOARD,
+                          ki=INPUT._INPUT._KEYBDINPUT(wVk=hexKeyCode))
+                user32.SendInput(1, ctypes.byref(x), ctypes.sizeof(x))
+
+            def release_key(hexKeyCode):
+                x = INPUT(type=INPUT_KEYBOARD,
+                          ki=INPUT._INPUT._KEYBDINPUT(wVk=hexKeyCode,
+                                                      dwFlags=KEYEVENTF_KEYUP))
+                user32.SendInput(1, ctypes.byref(x), ctypes.sizeof(x))
+
+            press_key(key_code)
+            release_key(key_code)
+
+        elif platform.system() == "Darwin":  # macOS
+            import subprocess
+            key_code_map = {
+                'left': 123,
+                'up': 126,
+                'right': 124,
+                'down': 125,
+                'space': 49
+            }
+            subprocess.run(["osascript", "-e", f'tell application "System Events" to key code {key_code_map[key.lower()]}'], check=True)
+        else:
+            import subprocess
+            subprocess.run(["xdotool", "key", key.lower()], check=True)
+    except Exception as e:
+        print(f"Failed to send keypress '{key}': {e}")
 
 def main():
     cap = cv2.VideoCapture(0)
@@ -74,13 +119,13 @@ def main():
                         start_init = True
                     elif (time.time() - start_time) > 0.2:
                         if cnt == 1:
-                            send_keypress("Right")
+                            send_keypress("right")
                         elif cnt == 2:
-                            send_keypress("Left")
+                            send_keypress("left")
                         elif cnt == 3:
-                            send_keypress("Up")
+                            send_keypress("up")
                         elif cnt == 4:
-                            send_keypress("Down")
+                            send_keypress("down")
                         elif cnt == 5:
                             send_keypress("space")
 
@@ -99,4 +144,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
