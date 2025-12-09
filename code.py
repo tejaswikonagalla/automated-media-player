@@ -29,51 +29,8 @@ def send_keypress(key):
             import subprocess
             subprocess.run(["xdotool", "key", key.lower()], check=True)
         elif platform.system() == "Windows":
-            import ctypes
-            from ctypes import wintypes
-
-            user32 = ctypes.WinDLL('user32', use_last_error=True)
-
-            key_map = {
-                'left': 0x25,
-                'up': 0x26,
-                'right': 0x27,
-                'down': 0x28,
-                'space': 0x20
-            }
-
-            key_code = key_map[key.lower()]
-
-            INPUT_KEYBOARD = 1
-            KEYEVENTF_KEYUP = 0x0002
-
-            class INPUT(ctypes.Structure):
-                class _INPUT(ctypes.Union):
-                    class _KEYBDINPUT(ctypes.Structure):
-                        _fields_ = (('wVk', wintypes.WORD),
-                                    ('wScan', wintypes.WORD),
-                                    ('dwFlags', wintypes.DWORD),
-                                    ('time', wintypes.DWORD),
-                                    ('dwExtraInfo', wintypes.ULONG_PTR))
-                    _fields_ = (('ki', _KEYBDINPUT),)
-                _anonymous_ = ('_input',)
-                _fields_ = (('type', wintypes.DWORD),
-                            ('_input', _INPUT))
-
-            def press_key(hexKeyCode):
-                x = INPUT(type=INPUT_KEYBOARD,
-                          ki=INPUT._INPUT._KEYBDINPUT(wVk=hexKeyCode))
-                user32.SendInput(1, ctypes.byref(x), ctypes.sizeof(x))
-
-            def release_key(hexKeyCode):
-                x = INPUT(type=INPUT_KEYBOARD,
-                          ki=INPUT._INPUT._KEYBDINPUT(wVk=hexKeyCode,
-                                                      dwFlags=KEYEVENTF_KEYUP))
-                user32.SendInput(1, ctypes.byref(x), ctypes.sizeof(x))
-
-            press_key(key_code)
-            release_key(key_code)
-
+            import pyautogui
+            pyautogui.press(key.lower())
         elif platform.system() == "Darwin":  # macOS
             import subprocess
             key_code_map = {
